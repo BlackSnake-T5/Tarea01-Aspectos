@@ -1,4 +1,4 @@
-package Observer;
+package core;
 
 import colores.GamaColores;
 import javafx.scene.shape.Rectangle;

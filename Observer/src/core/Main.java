@@ -1,4 +1,4 @@
-package Observer;
+package core;
 
 import javafx.application.Application;
 import javafx.scene.Scene;

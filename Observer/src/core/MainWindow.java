@@ -1,29 +1,56 @@
-package Observer;
+package core;
 
 import colores.GamaColores;
+import componentes.ConsoleLog;
+import componentes.ScreenBackground;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import observer.ObserverManager;
 
 public class MainWindow {
 	private final BorderPane root;
 	private Label titulo;
+	private VBox vb;
+	
 	public MainWindow() {
+		// Se instancia componentes de GUI
 		root = new BorderPane();
-		VBox vb=new VBox();
-		for(GamaColores gc : GamaColores.getGamas()) {
-			ColorButton cb=new ColorButton(gc);
-			vb.getChildren().add(cb.getRoot());
-		}
+		vb=new VBox();
+		
+		// Detalles de GUI
 		vb.setSpacing(10);
 		vb.setAlignment(Pos.CENTER);
 		makeTop();
+		
+		
+		// Se instancia el manejador de los Observadores
+		ObserverManager om = new ObserverManager();
+		om.subscribe(new ScreenBackground(root));
+		om.subscribe(new ConsoleLog());
+		
+		// Se agregan los colores disponibles al vbox
+		for(GamaColores gc : GamaColores.getGamas()) {
+			// Se crea un ColorButton
+			ColorButton cb = new ColorButton(gc);
+			
+			// Por cada color se notifica a los 'observadores' cuando 
+			// es clickeado
+			cb.getRoot().setOnMouseClicked(mouseEvent -> {
+				om.notify(gc);
+			});
+			
+			// se agrega y guarda en el vbox
+			vb.getChildren().add(cb.getRoot());
+		}
+		
+		// Se agrega al root
 		root.setCenter(vb);
+		
 	}
 
 	private void makeTop() {
@@ -39,15 +66,6 @@ public class MainWindow {
 	public BorderPane getRoot() {
 		return root;
 	}
-
-	public void actualizarFondoTop(GamaColores gc){
-        root.setStyle("-fx-background-color:" + getStringColor(gc.getRelleno()) + ";");
-        titulo.setTextFill(gc.getBorde());
-    }
-    
-    private String getStringColor(Color c){
-        return "#" + c.toString().substring(2, 8);
-    }
 	
 	
 }
