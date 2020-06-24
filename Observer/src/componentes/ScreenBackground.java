@@ -18,7 +18,7 @@ public class ScreenBackground implements Observer{
 	@Override
 	public void updateColor(GamaColores color) {
 		node.setStyle("-fx-background-color:" + getStringColor(color.getRelleno()) + ";");
-        //titulo.setTextFill(color.getBorde());
+        
 	}
 	
 	private String getStringColor(Color c){
