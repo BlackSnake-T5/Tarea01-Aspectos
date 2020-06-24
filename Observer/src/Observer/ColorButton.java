@@ -30,6 +30,10 @@ public class ColorButton {
             sb.boton.setStyle("-fx-border-color: "+getStringColor(c2)+"; -fx-border-width: 2px;");
         }
     }
-	 * */
+    
+    private String getStringColor(Color c){
+        return "#" + c.toString().substring(2, 8);
+    }
+	*/
 	
 }
