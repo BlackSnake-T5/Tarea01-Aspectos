@@ -3,10 +3,15 @@ package core;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import observer.Subject;
+import componentes.*;
+
+
 public class Main extends Application{
 	   @Override
 	    public void start(Stage stage) {
-	        Scene scene = new Scene ((new MainWindow()).getRoot(), 500, 500);
+		   	MainWindow mw = new MainWindow();
+	        Scene scene = new Scene (mw.getRoot(), 500, 500);
 	        stage.setScene(scene);
 	        stage.show();
 	    }

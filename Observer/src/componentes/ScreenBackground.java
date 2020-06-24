@@ -1,28 +1,34 @@
 package componentes;
 
-import colores.GamaColores;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
-import observer.Observer;
+import observer.*;
+import colores.GamaColores;
 
 // Componente que es un 'observador' esperando a un evento
 // En este caso observa al evento de cambio de color para cambiar 
 // El color de la pantalla
+
 public class ScreenBackground implements Observer{
-	private Node node;
+	public Node node;	
 	
 	public ScreenBackground(Node node) {
 		this.node = node;
 	}
-
-	@Override
-	public void updateColor(GamaColores color) {
-		node.setStyle("-fx-background-color:" + getStringColor(color.getRelleno()) + ";");
-        
+	
+	public Node getNode(){
+		return node;
 	}
 	
-	private String getStringColor(Color c){
+	public static String getStringColor(Color c){
         return "#" + c.toString().substring(2, 8);
     }
+
+	@Override
+	public void update(Subject observable, GamaColores color) {
+		String stringColor = ScreenBackground.getStringColor(color.getRelleno());
+		node.setStyle("-fx-background-color:" + stringColor + ";");
+		
+	}
 
 }

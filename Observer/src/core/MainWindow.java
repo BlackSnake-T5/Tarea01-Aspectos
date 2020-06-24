@@ -1,16 +1,21 @@
 package core;
 
+import java.util.Collection;
+
 import colores.GamaColores;
 import componentes.ConsoleLog;
 import componentes.ScreenBackground;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import observer.ObserverManager;
+import observer.EventManager;
+import observer.Observer;
+import observer.Subject;
 
 public class MainWindow {
 	private final BorderPane root;
@@ -18,21 +23,16 @@ public class MainWindow {
 	private VBox vb;
 	
 	public MainWindow() {
-		// Se instancia componentes de GUI
 		root = new BorderPane();
-		vb=new VBox();
+		updateRoot(root);
+		
+		vb = new VBox();
 		
 		// Detalles de GUI
 		vb.setSpacing(10);
 		vb.setAlignment(Pos.CENTER);
-		makeTop();
-		
-		
-		// Se instancia el manejador de los Observadores
-		ObserverManager om = new ObserverManager();
-		om.subscribe(new ScreenBackground(root));
-		om.subscribe(new ConsoleLog());
-		
+		makeTop();		
+				
 		// Se agregan los colores disponibles al vbox
 		for(GamaColores gc : GamaColores.getGamas()) {
 			// Se crea un ColorButton
@@ -41,7 +41,7 @@ public class MainWindow {
 			// Por cada color se notifica a los 'observadores' cuando 
 			// es clickeado
 			cb.getRoot().setOnMouseClicked(mouseEvent -> {
-				om.notify(gc);
+				updateColor(gc);
 			});
 			
 			// se agrega y guarda en el vbox
@@ -51,6 +51,13 @@ public class MainWindow {
 		// Se agrega al root
 		root.setCenter(vb);
 		
+	}
+	
+
+	private void updateRoot(Node root) {
+	}
+	
+	private void updateColor(GamaColores newColor) {
 	}
 
 	private void makeTop() {
