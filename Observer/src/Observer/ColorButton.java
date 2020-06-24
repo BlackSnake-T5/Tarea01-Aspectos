@@ -22,18 +22,6 @@ public class ColorButton {
 		return gamaColor;
 	}
 	
-	/*
-	private void actualizarFondoTop(Color c,Color c2){
-        top.setStyle("-fx-background-color:" + getStringColor(c) + ";");
-        titulo.setTextFill(c2);
-        for(SeccionBoton sb:secciones){
-            sb.boton.setStyle("-fx-border-color: "+getStringColor(c2)+"; -fx-border-width: 2px;");
-        }
-    }
-    
-    private String getStringColor(Color c){
-        return "#" + c.toString().substring(2, 8);
-    }
-	*/
+	
 	
 }
